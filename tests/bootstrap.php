@@ -216,18 +216,18 @@ if (!file_exists(APPPATH . 'config/config' . EXT)) {
     }
 }
 
-// Check that tmp and upload are set to 777 permission (OK on test system).
-if (substr(sprintf('%o', fileperms(BASEPATH . '../tmp/')), -4) != '0777') {
-    die('tmp folder not set to 777');
+// Check that tmp and upload are set to 755 permission at minimum
+if ( decoct( fileperms(BASEPATH . '../tmp/') & 0777 ) < 755 ) {
+    die('tmp folder not set to 755\n');
 }
-if (substr(sprintf('%o', fileperms(BASEPATH . '../tmp/runtime/')), -4) != '0777') {
-    die('tmp/runtime folder not set to 777');
+if ( decoct( fileperms(BASEPATH . '../tmp/runtime/') & 0777 ) < 755 ) {
+    die('tmp/runtime folder not set to 755\n');
 }
-if (substr(sprintf('%o', fileperms(BASEPATH . '../upload/')), -4) != '0777') {
-    die('upload folder not set to 777');
+if ( decoct( fileperms(BASEPATH . '../upload/') & 0777 ) < 755 ) {
+    die('upload folder not set to 755\n');
 }
-if (substr(sprintf('%o', fileperms(BASEPATH . '../tests/tmp/')), -4) != '0777') {
-    die('tests/tmp folder not set to 777');
+if ( decoct( fileperms(BASEPATH . '../tests/tmp/') & 0777 ) < 755 ) {
+    die('tests/tmp folder not set to 755\n');
 }
 
 Yii::$enableIncludePath = false;
